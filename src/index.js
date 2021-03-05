@@ -3,16 +3,8 @@ import logo from './images/logo.jpg'
 import a from './fn.js'
 import './css/css.css'
 
-console.log(a)
-console.log(logo)
 
-alert(1);
-
-// let img = new Image()
-// img.src = logo
-// img.width = img.height = a
-console.log(logo);
 let img = new Image();
-img.src = logo;
+img.src = logo.replace('./images','../images');
 document.body.appendChild(img);
 
