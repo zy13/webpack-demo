@@ -25,3 +25,12 @@
 ### webpack-dev-server
 
 启动服务以后，webpack 不在会把打包后的文件生成到硬盘真实目录中了，而是直接存在了内存中(同时虚拟了一个存放目录路径)，后期更新编译打包和访问速度大大提升
+
+## 练习
+
+```
+1、使用 devServer 配置一个 webserver （端口不限）。 
+2、使用 HtmlWebpackPlugin 插件构建 HTML，并在模板html页面中添加一个按钮。 
+3、使用 mini-css-extract-plugin 插件提取 css 到单独的文件中。 
+4、在入口文件中通过js获取页面中的按钮并绑定click事件函数，当按钮被点击的时候通过console.log("开课吧-${你的名字}")，其中${你的名字}对应你的真实姓名。
+```

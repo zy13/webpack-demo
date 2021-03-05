@@ -7,7 +7,7 @@ const router = new KoaRouter()
 
 router.get('/info', async ctx => {
   ctx.body = {
-    username: 'zy',
+    username: '曾媛',
     gender: 'lady'
   }
 })

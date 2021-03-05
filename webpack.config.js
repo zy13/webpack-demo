@@ -58,11 +58,8 @@ module.exports = {
     })
   ],
   devServer: {
-    // open: true,
     port: 8888,
-    // 开启热更新
-  	hot:true,
-  	// 即使 HMR 不
+  	hot:true, // 开启热更新
     proxy: {
       '/api': {
         target: 'http://localhost:9999',
