@@ -1,11 +1,17 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js', // 入口设置，webpack会从入口文件的代码进行读取，并分析和加载依赖，最终完成打包
+  devtool: 'source-map',
+  entry: { // 默认输出main.js
+    app: './src/index.js'
+  }, // 入口设置，webpack会从入口文件的代码进行读取，并分析和加载依赖，最终完成打包
   output: { // 设置webpack打包后的相关的一些选项，比如打包后的文件存放目录，文件名……
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: 'js/[name].js'
   },
   module: {  // 配置webpack分析和加载的资源处理的
     rules: [ // 资源的处理规则, 每一个资源（模块）的规则用一个对象来描述
@@ -16,7 +22,7 @@ module.exports = {
           options: {
             name: '[name]_[hash].[ext]', // 占位符 [name] 源资源模块的名称 [ext]资源模块的后缀
             outputPath: './images', // 打包后的存放位置
-            // publicPath: './dist/images', // 打包后文件的 url， 可以不写
+            publicPath: '../images', // 打包后文件的 url 默认当前路径
             limit: 100
           }
         }
@@ -24,7 +30,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          // 'style-loader', // MiniCssExtractPlugin与style-loader不能同时使用
           {
             loader: 'css-loader',
             options: {
@@ -36,5 +45,23 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+  // 插件的注册点
+  // 当一个插件对象被注入到plugins列表中的时候，webpack会自动调用插件对象的一个固定方法（apply）
+  // 来把任务（插件要做的事情）注入到指定的钩子中
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'my app',
+      filename: 'app.html',
+      template: './public/index.html',
+      inject: 'head',
+      hash: true
+    }),
+    new MiniCssExtractPlugin({
+    	filename: 'css/[name].css'
+    }),
+    new CleanWebpackPlugin({
+      dry: true,
+    })
+  ]
 }

@@ -4,25 +4,16 @@
 
 ### 核心配置
 
-- entry
-- output
+- entry: 打包入口文件
+- output：打包输出
 - loaders
-  - url-loader
-  - file-loader
-  - style-loader
-  - css-loader
+  - **file-loader**：把识别出的资源模块，移动到指定的输出⽬目录，并且返回这个资源在输出目录的地址(字符串)
+  - **url-loader**: 可以处理 file-loader 所有的事情，但是遇到图片格式的模块，可以选择性的把图片转成 base64 格式的字符串，并打包到 js 中，对⼩体积的图片⽐较合适，⼤图⽚不合适。  
+  - **css-loader**: 分析 css 模块之间的关系，并合成⼀个 css
+  - **style-loader**：把 css-loader 生成的内容，用 style 标签挂载到⻚面的 head 中
 
-### 练习
+### plugins
 
-```
-使用webpack构建打包一个基础项目，需要实现如下需求： 
-1、 创建一个 src 目录存放项目源文件 
-2、src 下创建项目入口文件 index.js 
-3、src 创建一个目录 images ，images 目录下存放一张图片 logo.png 
-4、src 创建一个文件 fn.js ，fn.js 中需要通过 export default 100， 导出数据 
-5、src 创建一个 css 目录，css 目录下创建一个 css.css 文件，写入样式 body {background: red} 
-6、index.js 中使用 import 方法分别引入 images 下的 logo.png 、fn.js、以及 css 目录下的 css.css 文件 
-7、项目根目录下创建一个 webpack.config.js 配置文件 
-8、 运行 webpack 打包后，在项目下自动生成 dist 目录，并生成对应的打包文件 
-9、创建一个html文件并通过 script 标签引入 dist 目录下生成的 js 文件
-```
+- `html-webpack-plugin`: 解析js文件中的DOM，并在打包结束后，自动生成一个html文件，并把打包生成的js模块引入到该html中
+- `clean-webpack-plugin`: 删除（清理）构建目录
+- `mini-css-extract-plugin`: 提取 CSS 到一个单独的文件中（不能与style-loader同时使用，要将style-loader卸载干净，否则会报错）
